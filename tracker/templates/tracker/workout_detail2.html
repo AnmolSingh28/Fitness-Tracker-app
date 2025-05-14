@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Workout Detail | FITNESShub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #1c1c1e;
+            color: #f2f2f2;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 16px;
+            background-color: #ff453a;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(255, 69, 58, 0.4);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .back-button:hover {
+            background-color: #ff5e57;
+            transform: translateY(-2px);
+        }
+
+        .workout-header {
+            background-color: #2c2c2e;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 0 10px rgba(255, 69, 58, 0.2);
+        }
+
+        .workout-header h2 {
+            margin: 0;
+            font-size: 28px;
+            color: #ffffff;
+            text-shadow: 1px 1px 6px rgba(255, 69, 58, 0.6);
+        }
+
+        .workout-header p {
+            margin-top: 8px;
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .exercise-title {
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #f2f2f2;
+        }
+
+        .exercise-card {
+            background-color: #3a3a3c;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            transition: transform 0.2s ease;
+        }
+
+        .exercise-card:hover {
+            transform: scale(1.01);
+        }
+
+        .exercise-card h4 {
+            margin-top: 0;
+            font-size: 18px;
+            color: #ff9f0a;
+        }
+
+        .exercise-details p {
+            font-size: 15px;
+            color: #d1d1d6;
+            margin: 5px 0;
+        }
+
+        .no-exercises {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 16px;
+            color: #8e8e93;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'logbook' %}" class="back-button">← Back to Logbook</a>
+
+        <div class="workout-header">
+            <h2>{{ workout.name }}</h2>
+            <p>Date: {{ workout.created_at|date:"F d, Y · h:i A" }}</p>
+        </div>
+
+        <h3 class="exercise-title">Exercises:</h3>
+
+        {% if workout.exercises.all %}
+            {% for exercise in workout.exercises.all %}
+                <div class="exercise-card">
+                    <h4>{{ exercise.exercise_name }}</h4>
+                    <div class="exercise-details">
+                        <p><strong>Reps:</strong> {{ exercise.reps }}</p>
+                        <p><strong>Weight:</strong> {{ exercise.weight }} kg</p>
+                        <p><strong>Duration:</strong> {{ exercise.duration }} </p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-exercises">
+                <p>No exercises added to this workout.</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

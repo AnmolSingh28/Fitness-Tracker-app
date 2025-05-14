@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login / Register</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif; /* Modern sans-serif font */
+            background: #121212; /* Dark background */
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .form-container {
+            background: #1c1c1c;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            width: 350px;
+            max-width: 100%;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #FF5252; /* Light red color */
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #FF5252, #E57373); /* Gradient background for text */
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
+            transition: transform 0.3s ease, text-shadow 0.3s ease, color 0.3s ease;
+        }
+
+        h1:hover {
+            transform: scale(1.1);
+            text-shadow: 0px 0px 20px rgba(255, 0, 0, 0.7), 0 0 40px rgba(255, 255, 255, 0.8);
+            color: #FF5252;
+        }
+
+        .input-field {
+            width: 92%;
+            padding: 10px;
+            margin: 12px 0;
+            background-color: #333;
+            color: #fff;
+            border: 2px solid #444;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border 0.3s ease;
+        }
+
+        .input-field:focus {
+            border: 2px solid #FF5252;
+            outline: none;
+        }
+
+        .submit-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 14px;
+            margin: 20px 0;
+            background-color: #333;
+            border: 2px solid #444;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .submit-btn:hover {
+            background-color: #444;
+            border: 2px solid #FF5252;
+            color: #FF5252;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+            transform: translateY(-3px);
+        }
+
+        .submit-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-link {
+            color: #FF5252;
+            font-size: 14px;
+            text-decoration: none;
+            display: block;
+            margin-top: 20px;
+        }
+
+        .form-link:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>IronTrack 🏋️</h1>
+
+        <form method="POST" action="{% url 'user_login' %}">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" class="input-field" required>
+            <input type="password" name="password" placeholder="Password" class="input-field" required>
+
+            <button type="submit" class="submit-btn">Login</button>
+
+            <a href="{% url 'register' %}" class="form-link">Don't have an account? Register</a>
+        </form>
+    </div>
+
+</body>
+</html>

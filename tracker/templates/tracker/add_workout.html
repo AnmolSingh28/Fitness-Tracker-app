@@ -1,0 +1,771 @@
+<!--{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Workout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f7f7f7;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(-10px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            margin-top: 15px;
+            display: block;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input, button {
+            width: 100%;
+            margin-top: 5px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            font-size: 16px;
+        }
+
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        .exercise-entry {
+            background: #eaffea;
+            padding: 12px;
+            margin-top: 10px;
+            border-left: 5px solid #4CAF50;
+            border-radius: 12px;
+            animation: popIn 0.3s ease;
+        }
+
+        @keyframes popIn {
+            from {opacity: 0; transform: scale(0.9);}
+            to {opacity: 1; transform: scale(1);}
+        }
+
+        .tick {
+            color: green;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        .submit-btn {
+            margin-top: 20px;
+            background: #007bff;
+        }
+
+        .submit-btn:hover {
+            background: #0056b3;
+        }
+
+        .error {
+            margin-top: 15px;
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Add New Workout</h1>
+
+    <form method="POST" action="{% url 'add_workout' %}">
+        {% csrf_token %} -->
+        
+        <!-- Workout Name -->
+        <!--<label for="name">Workout Name:</label>
+        <input type="text" id="name" name="name" required>
+
+      
+        <label for="exercise_name">Exercise Name:</label>
+        <input type="text" id="exercise_name" >
+
+        <label for="reps">Reps:</label>
+        <input type="number" id="reps" >
+
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight" >
+
+        <label for="duration">Duration (minutes):</label>
+        <input type="number" id="duration" >
+
+        <button type="button" onclick="addExercise()">✅ Add Exercise</button>
+
+        
+        <h3 style="margin-top:20px;">Exercises Added:</h3>
+        <div id="added-exercises"></div>
+
+       
+        <input type="hidden" name="exercises_data" id="exercises_data">
+
+       
+        <button type="submit" class="submit-btn" onclick="prepareAndSubmitWorkout()">Submit Workout</button>
+    </form>
+
+    {% if error %}
+        <div class="error">
+            {{ error }}
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    let currentExercises = [];
+
+    function addExercise() {
+        const name = document.getElementById('exercise_name').value.trim();
+        const reps = document.getElementById('reps').value.trim();
+        const weight = document.getElementById('weight').value.trim();
+        const duration = document.getElementById('duration').value.trim();
+
+        if (name && reps && weight && duration) {
+            currentExercises.push({
+                name: name,
+                reps: reps,
+                weight: weight,
+                duration: duration
+            });
+
+            renderExercises();
+            clearForm();
+        }
+    }
+
+    function renderExercises() {
+        const container = document.getElementById('added-exercises');
+        container.innerHTML = '';
+
+        currentExercises.forEach((exercise, index) => {
+            const div = document.createElement('div');
+            div.classList.add('exercise-entry');
+            div.innerHTML = `
+                <span class="tick">✔️</span>
+                <strong>${exercise.name}</strong> - ${exercise.reps} reps, ${exercise.weight} kg, ${exercise.duration} min
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function clearForm() {
+        document.getElementById('exercise_name').value = '';
+        document.getElementById('reps').value = '';
+        document.getElementById('weight').value = '';
+        document.getElementById('duration').value = '';
+    }
+
+    function beforeSubmit() {
+        document.getElementById('exercises_data').value = JSON.stringify(currentExercises);
+    }
+    function prepareAndSubmitWorkout() {
+        // Remove any blank exercises
+        let exerciseSections = document.querySelectorAll('.exercise-entry');
+        exerciseSections.forEach(section => {
+            const name = section.querySelector('input[name="exercise_name[]"]').value;
+            const reps = section.querySelector('input[name="reps[]"]').value;
+            const weight = section.querySelector('input[name="weight[]"]').value;
+            const duration = section.querySelector('input[name="duration[]"]').value;
+    
+            if (!name && !reps && !weight && !duration) {
+                section.remove(); // Remove blank exercise block
+            }
+        });
+    
+        document.getElementById('workout-form').submit();
+    }
+</script>
+
+</body>
+</html> 
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <title>Add Workout | IronTrack</title>
+      <style>
+        body {
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+          background-color: #1c1c1e;
+          color: #f2f2f2;
+          margin: 0;
+          padding: 30px;
+        }
+    
+        .container {
+          max-width: 800px;
+          margin: 0 auto;
+        }
+    
+        .back-button {
+          display: inline-block;
+          margin-bottom: 20px;
+          padding: 10px 16px;
+          background-color: #ff453a;
+          color: white;
+          border-radius: 8px;
+          text-decoration: none;
+          font-weight: 500;
+          box-shadow: 0 4px 12px rgba(255, 69, 58, 0.4);
+          transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+    
+        .back-button:hover {
+          background-color: #ff5e57;
+          transform: translateY(-2px);
+        }
+    
+        .workout-header {
+          background-color: #2c2c2e;
+          padding: 25px;
+          border-radius: 15px;
+          text-align: center;
+          margin-bottom: 30px;
+          box-shadow: 0 0 10px rgba(255, 69, 58, 0.2);
+        }
+    
+        .workout-header h2 {
+          margin: 0;
+          font-size: 28px;
+          color: #ffffff;
+          text-shadow: 1px 1px 6px rgba(255, 69, 58, 0.6);
+        }
+    
+        .workout-header p {
+          margin-top: 8px;
+          font-size: 14px;
+          color: #aaa;
+        }
+    
+        label {
+          font-weight: 600;
+          margin-top: 12px;
+          font-size: 16px;
+          color: #f2f2f2;
+          display: block;
+        }
+    
+        input[type="text"],
+        input[type="number"] {
+          width: 95%;
+          padding: 10px;
+          margin-top: 6px;
+          margin-bottom: 16px;
+          border: 1px solid #444;
+          border-radius: 6px;
+          background-color: #3a3a3c;
+          color: #f2f2f2;
+          font-size: 15px;
+        }
+    
+        .exercise-block {
+          background-color: #3a3a3c;
+          border-left: 4px solid #ff9f0a;
+          border-radius: 12px;
+          padding: 20px;
+          margin-top: 15px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+    
+        .exercise-block input {
+          background-color: #2c2c2e;
+          color: #f2f2f2;
+        }
+    
+        .error {
+          color: #dc2626;
+          font-weight: 500;
+          text-align: center;
+          margin-bottom: 20px;
+        }
+    
+        .btn {
+          display: inline-block;
+          padding: 12px 20px;
+          font-size: 15px;
+          font-weight: 500;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          margin-top: 20px;
+          text-transform: uppercase;
+        }
+    
+        .btn-add {
+          background-color: #10b981;
+          color: white;
+          margin-right: 10px;
+          box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+        }
+    
+        .btn-add:hover {
+          background-color: #059669;
+          transform: scale(1.05);
+          box-shadow: 0 12px 40px rgba(16, 185, 129, 0.3);
+        }
+    
+        .btn-add:active {
+          background-color: #047857;
+          transform: scale(0.98);
+        }
+    
+        .btn-save {
+          background-color: #ff9f0a;
+          color: white;
+          box-shadow: 0 6px 20px rgba(255, 159, 10, 0.3);
+        }
+    
+        .btn-save:hover {
+          background-color: #f79c42;
+          transform: scale(1.05);
+          box-shadow: 0 12px 40px rgba(255, 159, 10, 0.3);
+        }
+    
+        .btn-save:active {
+          background-color: #f57c20;
+          transform: scale(0.98);
+        }
+    
+        hr {
+          border: none;
+          border-top: 1px solid #444;
+          margin: 30px 0;
+        }
+    
+        @media (max-width: 600px) {
+          .container {
+            padding: 15px;
+          }
+    
+          .btn {
+            width: 100%;
+            margin-bottom: 10px;
+          }
+        }
+        .timer-section {
+          background-color: #2d2d2f;
+          border-radius: 8px;
+          padding: 20px;
+          margin: 10px 0;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+      }
+  
+      .live-timer {
+          font-size: 24px;
+          font-weight: bold;
+          color: #ff9f0a;
+          margin-right: 15px;
+      }
+  
+      .timer-controls {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+      }
+  
+      button {
+          background-color: #4CAF50;
+          border: none;
+          color: white;
+          font-size: 16px;
+          padding: 10px 20px;
+          margin-left: 10px;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease, transform 0.2s ease;
+          font-weight: 600;
+      }
+  
+      button:hover {
+          background-color: #45a049;
+          transform: scale(1.05);
+      }
+  
+      button:active {
+          transform: scale(0.98);
+      }
+  
+      input[type="text"], input[type="number"] {
+          font-size: 16px;
+          padding: 8px 10px;
+          margin-top: 10px;
+          margin-left: 10px;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          background-color: #333;
+          color: #fff;
+      }
+  
+      .timer-buttons {
+          display: flex;
+          align-items: center;
+      }
+  
+      .reset-button {
+          background-color: #f44336;
+          margin-left: 10px;
+      }
+  
+      .reset-button:hover {
+          background-color: #e53935;
+      }
+  
+      .timer-container {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+      }
+      </style>
+   <!-- </head>
+    <body>
+      <div class="container">
+        <div class="workout-header">
+          <h2>🏋️ Add Workout</h2>
+          <p>Log exercises and track your progress on IronTrack</p>
+        </div>
+    
+        {% if error %}
+          <div class="error">{{ error }}</div>
+        {% endif %}
+    
+        <form method="post" action="{% url 'save_workout' %}">
+          {% csrf_token %}
+          <label for="name">Workout Name:</label>
+          <input type="text" name="name" placeholder="e.g., Upper Body Strength" required />
+    
+          <hr />
+    
+          <div id="exercise-container">
+            {% for i in "1" %}
+            <div class="exercise-block">
+              <label>Exercise {{ forloop.counter }}:</label>
+              <label>Exercise Name:</label>
+              <input type="text" name="exercise_name[]" placeholder="e.g., Push Ups" />
+    
+              <label>Reps:</label>
+              <input type="number" name="reps[]" placeholder="e.g., 15" />
+    
+              <label>Weight:</label>
+              <input type="number" name="weight[]" placeholder="e.g., 20 (kg/lbs)" />
+    
+              
+             
+              <label>Duration:</label>
+              <div class="timer-section">
+                <label for="duration_1">Duration (seconds):</label>
+                <input type="text" id="duration_1" name="duration[]" readonly>
+            
+                <div>
+                    <button type="button" onclick="startTimer(this)">Start</button>
+                    <button type="button" onclick="stopTimer(this)">Stop</button>
+                    <button type="button" onclick="resetTimer(this)">Reset</button>
+                </div>
+                <span class="live-timer">0s</span>
+            </div>
+           
+             
+            </div>
+            {% endfor %}
+          </div>
+    
+          <button type="button" class="btn btn-add" onclick="addExercise()">+ Add Exercise</button>
+          <button type="submit" class="btn btn-save">💾 Save Workout</button>
+        </form>
+      </div>
+    
+      <script>
+        let exerciseCount = 2;
+    
+        function addExercise() {
+          const container = document.getElementById("exercise-container");
+    
+          const block = document.createElement("div");
+          block.className = "exercise-block";
+    
+          block.innerHTML = `
+            <label>Exercise ${exerciseCount}:</label>
+            <label>Exercise Name:</label>
+            <input type="text" name="exercise_name[]" placeholder="e.g., Pull Ups" />
+    
+            <label>Reps:</label>
+            <input type="number" name="reps[]" placeholder="e.g., 10" />
+    
+            <label>Weight:</label>
+            <input type="number" name="weight[]" placeholder="e.g., 30" />
+    
+            <label>Duration:</label>
+            <input type="text" name="duration[]" placeholder="e.g., 2 mins" />
+          `;
+    
+          container.appendChild(block);
+          exerciseCount++;
+        }
+      </script>
+      {% if request.session.workout_saved %}
+      <div class="notification">
+          Workout saved successfully!
+          <a href="{% url 'logbook' %}" class="view-button">View</a>
+      </div>
+      <script>
+          // Hide notification after 4 seconds
+          setTimeout(() => {
+              document.querySelector('.notification').style.display = 'none';
+          }, 4000);
+      </script>
+      {% comment %} Clear the session flag using JS or backend redirect {% endcomment %}
+  {% endif %}
+  <script>
+    const timers = new Map();
+
+    function startTimer(btn) {
+        const container = btn.closest('.timer-section');
+        
+        // Prevent starting a new timer if one is already running
+        if (timers.has(container)) return;  // already running
+
+        let seconds = 0;
+        const display = container.querySelector('.live-timer');
+        const durationInput = container.querySelector('input[name="duration[]"]');
+
+        const interval = setInterval(() => {
+            seconds++;
+            display.textContent = seconds + 's';
+            durationInput.value = seconds;
+        }, 1000);
+
+        timers.set(container, { interval, seconds });
+    }
+
+    function stopTimer(btn) {
+        const container = btn.closest('.timer-section');
+        const timerData = timers.get(container);
+
+        if (timerData && timerData.interval) {
+            clearInterval(timerData.interval);
+            timers.delete(container); 
+            btn.textContent = 'Resume';  
+        } else {
+            
+            const { seconds } = timerData;
+            startTimer(btn);
+            btn.textContent = 'Stop';  
+        }
+    }
+
+    function resetTimer(btn) {
+        stopTimer(btn); 
+        const container = btn.closest('.timer-section');
+        container.querySelector('.live-timer').textContent = '0s';
+        container.querySelector('input[name="duration[]"]').value = '';
+
+        timers.set(container, { interval: null, seconds: 0 });
+    }
+</script>
+
+
+  
+  
+
+    </body>
+    </html>
+-->
+<body>
+  <div class="container">
+    <div class="workout-header">
+      <h2>🏋️ Add Workout</h2>
+      <p>Log exercises and track your progress on IronTrack</p>
+    </div>
+
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" action="{% url 'save_workout' %}">
+      {% csrf_token %}
+      <label for="name">Workout Name:</label>
+      <input type="text" name="name" placeholder="e.g., Upper Body Strength" required />
+
+      <hr />
+
+      <div id="exercise-container">
+        {% for i in "1" %}
+        <div class="exercise-block">
+          <label>Exercise {{ forloop.counter }}:</label>
+          <label>Exercise Name:</label>
+          <input type="text" name="exercise_name[]" placeholder="e.g., Push Ups" />
+
+          <label>Reps:</label>
+          <input type="number" name="reps[]" placeholder="e.g., 15" />
+
+          <label>Weight:</label>
+          <input type="number" name="weight[]" placeholder="e.g., 20 (kg/lbs)" />
+
+          <label>Duration:</label>
+          <div class="timer-section">
+            <label for="duration_{{ forloop.counter }}">Duration (seconds):</label>
+            <input type="text" id="duration_{{ forloop.counter }}" name="duration[]" readonly>
+
+            <div>
+              <button type="button" class="start-button" onclick="startTimer(this, {{ forloop.counter }})">Start</button>
+              <button type="button" class="stop-button" onclick="stopTimer(this, {{ forloop.counter }})" style="display:none;">Stop</button>
+              <button type="button" class="reset-button" onclick="resetTimer(this, {{ forloop.counter }})">Reset</button>
+            </div>
+            <span class="live-timer">00:00:00</span>
+          </div>
+
+        </div>
+        {% endfor %}
+      </div>
+
+      <button type="button" class="btn btn-add" onclick="addExercise()">+ Add Exercise</button>
+      <button type="submit" class="btn btn-save">💾 Save Workout</button>
+    </form>
+  </div>
+
+  <script>
+    let exerciseCount = 2;
+
+    function addExercise() {
+      const container = document.getElementById("exercise-container");
+
+      const block = document.createElement("div");
+      block.className = "exercise-block";
+
+      block.innerHTML = `
+        <label>Exercise ${exerciseCount}:</label>
+        <label>Exercise Name:</label>
+        <input type="text" name="exercise_name[]" placeholder="e.g., Pull Ups" />
+
+        <label>Reps:</label>
+        <input type="number" name="reps[]" placeholder="e.g., 10" />
+
+        <label>Weight:</label>
+        <input type="number" name="weight[]" placeholder="e.g., 30" />
+
+        <label>Duration:</label>
+        <div class="timer-section">
+          <label for="duration_${exerciseCount}">Duration (seconds):</label>
+          <input type="text" id="duration_${exerciseCount}" name="duration[]" readonly>
+
+          <div>
+            <button type="button" class="start-button" onclick="startTimer(this, ${exerciseCount})">Start</button>
+            <button type="button" class="stop-button" onclick="stopTimer(this, ${exerciseCount})" style="display:none;">Stop</button>
+            <button type="button" class="reset-button" onclick="resetTimer(this, ${exerciseCount})">Reset</button>
+          </div>
+          <span class="live-timer">0s</span>
+        </div>
+      `;
+
+      container.appendChild(block);
+      exerciseCount++;
+    }
+
+    const timers = new Map();
+
+    // Start Timer for a particular exercise
+    function startTimer(btn, exerciseId) {
+      const container = btn.closest('.timer-section');
+      const durationInput = container.querySelector('input[name="duration[]"]');
+      const display = container.querySelector('.live-timer');
+      
+      // Prevent starting a new timer if one is already running
+      if (timers.has(exerciseId)) return;
+
+      let seconds = 0;
+      const interval = setInterval(() => {
+        seconds++;
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const remainingSeconds = seconds % 60;
+
+        // Format the time as HH:MM:SS
+        const timeFormatted = `${pad(hours)}:${pad(minutes)}:${pad(remainingSeconds)}`;
+        display.textContent = timeFormatted;
+        durationInput.value = timeFormatted;
+      }, 1000);
+
+      timers.set(exerciseId, { interval, seconds });
+
+      // Toggle button visibility
+      container.querySelector('.start-button').style.display = 'none';
+      container.querySelector('.stop-button').style.display = 'inline-block';
+    }
+
+    // Stop Timer for a particular exercise
+    function stopTimer(btn, exerciseId) {
+      const container = btn.closest('.timer-section');
+      const timerData = timers.get(exerciseId);
+
+      if (timerData) {
+        clearInterval(timerData.interval);
+        timers.delete(exerciseId);
+
+        // Toggle button visibility
+        container.querySelector('.stop-button').style.display = 'none';
+        container.querySelector('.start-button').style.display = 'inline-block';
+      }
+    }
+
+    // Reset Timer for a particular exercise
+    function resetTimer(btn, exerciseId) {
+      stopTimer(btn, exerciseId);
+
+      const container = btn.closest('.timer-section');
+      container.querySelector('.live-timer').textContent = '00:00:00';
+      container.querySelector('input[name="duration[]"]').value = '';
+
+      timers.set(exerciseId, { interval: null, seconds: 0 });
+
+      // Toggle button visibility
+      container.querySelector('.start-button').style.display = 'inline-block';
+      container.querySelector('.stop-button').style.display = 'none';
+    }
+
+    // Function to pad the time (e.g., "01" instead of "1")
+    function pad(number) {
+      return number < 10 ? `0${number}` : number;
+    }
+  </script>
+</body>

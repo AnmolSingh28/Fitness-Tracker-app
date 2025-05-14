@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Workout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .exercise-block {
+            padding: 15px;
+            margin-bottom: 20px;
+            background: #f9f9f9;
+            border-left: 5px solid #4CAF50;
+            border-radius: 6px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 25px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Add Workout</h2>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label for="name">Workout Name:</label>
+            <input type="text" name="name" required>
+
+            <div id="exercises-container">
+                <div class="exercise-block">
+                    <label>Exercise 1</label>
+
+                    <label>Exercise Name:</label>
+                    <input type="text" name="exercise_name[]" placeholder="e.g., Push Ups">
+
+                    <label>Reps:</label>
+                    <input type="number" name="reps[]" placeholder="e.g., 10">
+
+                    <label>Weight:</label>
+                    <input type="number" name="weight[]" placeholder="e.g., 20">
+
+                    <label>Duration:</label>
+                    <input type="text" name="duration[]" placeholder="e.g., 1 min">
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="button" onclick="addExercise()">Add Another Exercise</button>
+                <button type="submit">Submit Workout</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let exerciseCount = 1;
+
+        function addExercise() {
+            exerciseCount++;
+
+            const container = document.getElementById('exercises-container');
+            const div = document.createElement('div');
+            div.className = 'exercise-block';
+
+            div.innerHTML = `
+                <label>Exercise ${exerciseCount}</label>
+
+                <label>Exercise Name:</label>
+                <input type="text" name="exercise_name[]" placeholder="e.g., Push Ups">
+
+                <label>Reps:</label>
+                <input type="number" name="reps[]" placeholder="e.g., 10">
+
+                <label>Weight:</label>
+                <input type="number" name="weight[]" placeholder="e.g., 20">
+
+                <label>Duration:</label>
+                <input type="text" name="duration[]" placeholder="e.g., 1 min">
+            `;
+
+            container.appendChild(div);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            padding: 20px;
+        }
+
+        .workout-detail-card {
+            border: 2px solid #ccc;
+            padding: 20px;
+            margin: 20px;
+            background-color: #ffffff;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        .exercise-card {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+        }
+
+        .exercise-card p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="workout-detail-card">
+        <h1>{{ workout.name }}</h1>
+        <p>Workout Date: {{ workout.created_at }}</p>
+        
+        <h2>Exercises</h2>
+       
+            <div class="exercise-card">
+                <p><strong>Exercise Name:</strong> {{exercises.exercise_name }}</p>
+                <p><strong>Reps:</strong> {{ exercises.reps }}</p>
+                <p><strong>Weight:</strong> {{ exercises.weight }} kg</p>
+                <p><strong>Duration:</strong> {{ exercises.duration }} mins</p>
+            </div>
+       
+            <p>No exercises added for this workout.</p>
+
+    </div>
+</body>
+</html>
